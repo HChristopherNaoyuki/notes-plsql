@@ -16,7 +16,7 @@ reference for professional developers.
   - [1.4 PL/SQL Block Structure](#14-plsql-block-structure)
 - [2. Anonymous Blocks](#2-anonymous-blocks)
   - [2.1 Basic Anonymous Block](#21-basic-anonymous-block)
-  - [2.2 Setting Up Output (DBMS_OUTPUT)](#22-setting-up-output-dbs_output)
+  - [2.2 Setting Up Output (DBMS_OUTPUT)](#22-setting-up-output-dbms_output)
   - [2.3 Working with Variables](#23-working-with-variables)
   - [2.4 Variable Qualifiers: CONSTANT and NOT NULL](#24-variable-qualifiers-constant-and-not-null)
   - [2.5 SELECT INTO in PL/SQL](#25-select-into-in-plsql)
@@ -87,68 +87,63 @@ reference for professional developers.
 
 ### 1.1 What is PL/SQL?
 
-PL/SQL stands for **Procedural Language extension to SQL**.
-It is Oracle Corporation's proprietary programming language
-embedded within the Oracle Database. It adds procedural
-constructs (like loops, conditions, and variables) to standard SQL,
-allowing you to build complex, business-logic-driven operations
-directly inside the database.
+PL/SQL stands for Procedural Language extension to SQL.
+It is a proprietary programming language embedded within the database.
+It adds procedural constructs (like loops, conditions, and variables)
+to standard SQL, allowing you to build complex, business-logic-driven
+operations directly inside the database.
 
-**Key Difference Between SQL and PL/SQL:**
+Key Difference Between SQL and PL/SQL:
 
-- **SQL** is a declarative language. You tell the database *what*
-  data you want (e.g., `SELECT ... FROM ... WHERE ...`), but you
-  cannot use conditional logic (IF-THEN-ELSE), loops, or variables.
-- **PL/SQL** is a procedural language. You tell the database *how*
-  to process data step-by-step. You can use variables, IF statements,
-  loops, error handling, and more. PL/SQL is to Oracle what T-SQL is
-  to SQL Server.
+- SQL is a declarative language. You tell the database what data you
+  want, but you cannot use conditional logic (IF-THEN-ELSE), loops,
+  or variables.
+- PL/SQL is a procedural language. You tell the database how to
+  process data step-by-step. You can use variables, IF statements,
+  loops, error handling, and more.
 
 ### 1.2 PL/SQL Architecture and Context Switching
 
-When you execute a PL/SQL block, the Oracle Database server uses a
-**PL/SQL engine**. This engine separates the procedural code
+When you execute a PL/SQL block, the database server uses a
+PL/SQL engine. This engine separates the procedural code
 (e.g., loops, IF statements) from the SQL code
 (e.g., SELECT, INSERT, UPDATE, DELETE).
 
-- **Procedural statements** are handled by the Procedural Statement
+- Procedural statements are handled by the Procedural Statement
   Executor.
-- **SQL statements** are sent to the SQL Statement Executor.
+- SQL statements are sent to the SQL Statement Executor.
 
-**Context Switching** refers to the overhead of moving back and
+Context Switching refers to the overhead of moving back and
 forth between these two executors. For example, a loop that executes
 a single SQL statement 10,000 times will cause 10,000 context
 switches, which significantly impacts performance. Techniques like
-`BULK COLLECT` and `FORALL` (covered later) minimize context switching.
+BULK COLLECT and FORALL (covered later) minimize context switching.
 
 ### 1.3 Benefits of PL/SQL
 
-- **Procedural Control**: Use variables, loops, and conditional logic.
-- **Improved Performance**: Reduce network traffic by sending entire
-  blocks of code to the database instead of individual SQL statements.
-- **Modularity**: Group related logic into procedures, functions,
-  and packages.
-- **Error Handling**: Gracefully handle runtime errors with exceptions.
-- **Portability**: PL/SQL code written for Oracle can run on any
-  Oracle Database platform.
+- Procedural control using variables, loops, and conditional logic
+- Improved performance by reducing network traffic
+- Modularity by grouping related logic into named blocks
+- Graceful error handling with exceptions
+- Portability across different database platforms
 
 ### 1.4 PL/SQL Block Structure
 
 Every PL/SQL code is organized into blocks. A block consists of up
 to three sections:
 
-1.  **Declaration Section (Optional)**: `DECLARE` – Define variables,
+1.  Declaration Section (Optional): DECLARE – Define variables,
     constants, cursors, etc.
-2.  **Execution Section (Mandatory)**: `BEGIN` ... `END;` – Contains
-    the main logic (SQL statements, assignments, procedure calls).
-3.  **Exception Handling Section (Optional)**: `EXCEPTION` – Code to
+2.  Execution Section (Mandatory): BEGIN ... END; – Contains the
+    main logic (SQL statements, assignments, procedure calls).
+3.  Exception Handling Section (Optional): EXCEPTION – Code to
     handle runtime errors.
 
 There are two types of PL/SQL blocks:
 
-- **Anonymous Block**: Has no name. It is compiled and executed each
+- Anonymous Block: Has no name. It is compiled and executed each
   time it is run. It is not stored in the database.
-- **Named Block**: Has a name and is stored as a database object
+- Named Block: Has a name and is stored as a database object
   (e.g., Procedure, Function, Package, Trigger). It is compiled once
   and can be executed many times.
 
@@ -162,9 +157,9 @@ operations.
 ### 2.1 Basic Anonymous Block
 
 This is the simplest PL/SQL block. It contains only the mandatory
-`BEGIN` and `END;` sections.
+BEGIN and END; sections.
 
-**Example: Simple Anonymous Block**
+Example: Simple Anonymous Block
 
 ```sql
 BEGIN
@@ -174,7 +169,7 @@ END;
 /
 ```
 
-**Expected Output:**
+Expected Output:
 
 ```
 PL/SQL procedure successfully completed.
@@ -182,14 +177,14 @@ PL/SQL procedure successfully completed.
 
 ### 2.2 Setting Up Output (DBMS_OUTPUT)
 
-`DBMS_OUTPUT` is a built-in Oracle package that allows you to display
-text from PL/SQL blocks. To see the output in SQL Developer or
-SQL*Plus, you must enable it.
+DBMS_OUTPUT is a built-in package that allows you to display text
+from PL/SQL blocks. To see the output in your SQL tool, you must
+enable it.
 
-- `SET SERVEROUTPUT ON;` – Enables output for the current session.
-- `DBMS_OUTPUT.PUT_LINE('Your text here');` – Prints a line of text.
+- SET SERVEROUTPUT ON; – Enables output for the current session.
+- DBMS_OUTPUT.PUT_LINE('Your text here'); – Prints a line of text.
 
-**Example: Hello World**
+Example: Hello World
 
 ```sql
 SET SERVEROUTPUT ON;
@@ -200,7 +195,7 @@ END;
 /
 ```
 
-**Expected Output:**
+Expected Output:
 
 ```
 Hello, welcome to the PL/SQL session.
@@ -208,10 +203,10 @@ Hello, welcome to the PL/SQL session.
 
 ### 2.3 Working with Variables
 
-Variables must be declared in the `DECLARE` section. Use the
-assignment operator `:=` to assign a value.
+Variables must be declared in the DECLARE section. Use the
+assignment operator := to assign a value.
 
-**Example: Adding Two Numbers**
+Example: Adding Two Numbers
 
 ```sql
 SET SERVEROUTPUT ON;
@@ -229,7 +224,7 @@ END;
 /
 ```
 
-**Expected Output:**
+Expected Output:
 
 ```
 Equation: 10.23 + 20.97 = 31.2
@@ -237,11 +232,11 @@ Equation: 10.23 + 20.97 = 31.2
 
 ### 2.4 Variable Qualifiers: CONSTANT and NOT NULL
 
-- `CONSTANT`: The variable's value cannot change after initialization.
-- `NOT NULL`: The variable cannot hold a `NULL` value. It must be
+- CONSTANT: The variable's value cannot change after initialization.
+- NOT NULL: The variable cannot hold a NULL value. It must be
   initialized.
 
-**Example: Using CONSTANT and NOT NULL**
+Example: Using CONSTANT and NOT NULL
 
 ```sql
 SET SERVEROUTPUT ON;
@@ -257,7 +252,7 @@ END;
 /
 ```
 
-**Expected Output:**
+Expected Output:
 
 ```
 Total: 30
@@ -265,15 +260,15 @@ Total: 30
 
 ### 2.5 SELECT INTO in PL/SQL
 
-Use `SELECT ... INTO ...` to fetch a single row from a table and
+Use SELECT ... INTO ... to fetch a single row from a table and
 store its values into PL/SQL variables.
 
-**Important:** If the query returns no rows, Oracle raises
-`NO_DATA_FOUND`. If it returns more than one row, it raises
-`TOO_MANY_ROWS`. Use proper exception handling (see Section 8) to
+Important: If the query returns no rows, the database raises
+NO_DATA_FOUND. If it returns more than one row, it raises
+TOO_MANY_ROWS. Use proper exception handling (see Section 8) to
 manage these cases.
 
-**Example: Selecting a Single Value**
+Example: Selecting a Single Value
 
 ```sql
 SET SERVEROUTPUT ON;
@@ -291,7 +286,7 @@ END;
 /
 ```
 
-**Expected Output (based on sample data):**
+Expected Output (based on sample data):
 
 ```
 Phone Number: 0722222222
@@ -299,11 +294,11 @@ Phone Number: 0722222222
 
 ### 2.6 DML Operations in PL/SQL
 
-You can execute `INSERT`, `UPDATE`, and `DELETE` statements directly
-inside a PL/SQL block. Remember to `COMMIT` or `ROLLBACK` your
+You can execute INSERT, UPDATE, and DELETE statements directly
+inside a PL/SQL block. Remember to COMMIT or ROLLBACK your
 transactions.
 
-**Example: Inserting a New Customer**
+Example: Inserting a New Customer
 
 ```sql
 SET SERVEROUTPUT ON;
@@ -319,7 +314,7 @@ END;
 /
 ```
 
-**Expected Output:**
+Expected Output:
 
 ```
 Customer inserted successfully.
@@ -328,14 +323,14 @@ Customer inserted successfully.
 ### 2.7 Transactions and Savepoints
 
 A transaction is a logical unit of work. It begins with the first
-DML statement and ends with a `COMMIT` (makes all changes permanent)
-or `ROLLBACK` (undoes all changes).
+DML statement and ends with a COMMIT (makes all changes permanent)
+or ROLLBACK (undoes all changes).
 
-- **`SAVEPOINT <name>`**: Creates a marker within a transaction.
-- **`ROLLBACK TO <savepoint_name>`**: Undoes changes only up to that
+- SAVEPOINT <name>: Creates a marker within a transaction.
+- ROLLBACK TO <savepoint_name>: Undoes changes only up to that
   savepoint.
 
-**Example: Using Savepoints**
+Example: Using Savepoints
 
 ```sql
 BEGIN
@@ -357,16 +352,16 @@ END;
 
 ### 2.8 %TYPE and %ROWTYPE Attributes
 
-These attributes provide **anchor declarations**, making your code
+These attributes provide anchor declarations, making your code
 more robust and easier to maintain. They automatically inherit the
 data type of a database column or a whole row.
 
-- **`%TYPE`**: Declares a variable to have the same data type as a
+- %TYPE: Declares a variable to have the same data type as a
   specific table column.
-- **`%ROWTYPE`**: Declares a record variable that can hold an entire
+- %ROWTYPE: Declares a record variable that can hold an entire
   row from a table or view.
 
-**Example: %TYPE and %ROWTYPE**
+Example: %TYPE and %ROWTYPE
 
 ```sql
 SET SERVEROUTPUT ON;
@@ -402,11 +397,10 @@ END;
 
 ### 3.1 IF Statement
 
-The `IF` statement allows you to execute code based on conditions.
-Oracle supports `IF-THEN`, `IF-THEN-ELSE`, and `IF-THEN-ELSIF`
-(note the spelling, not `ELSEIF`).
+The IF statement allows you to execute code based on conditions.
+The syntax supports IF-THEN, IF-THEN-ELSE, and IF-THEN-ELSIF.
 
-**Syntax:**
+Syntax:
 
 ```sql
 IF condition1 THEN
@@ -418,7 +412,7 @@ ELSE
 END IF;
 ```
 
-**Example: IF-THEN-ELSIF**
+Example: IF-THEN-ELSIF
 
 ```sql
 SET SERVEROUTPUT ON;
@@ -438,7 +432,7 @@ END;
 /
 ```
 
-**Expected Output:**
+Expected Output:
 
 ```
 a is less than b
@@ -446,10 +440,10 @@ a is less than b
 
 ### 3.2 CASE Statement
 
-The `CASE` statement is an alternative to `IF-THEN-ELSIF` that can be
+The CASE statement is an alternative to IF-THEN-ELSIF that can be
 more readable, especially with many equality checks.
 
-**Syntax:**
+Syntax:
 
 ```sql
 CASE
@@ -462,7 +456,7 @@ CASE
 END CASE;
 ```
 
-**Example: CASE Statement**
+Example: CASE Statement
 
 ```sql
 SET SERVEROUTPUT ON;
@@ -483,7 +477,7 @@ END;
 /
 ```
 
-**Expected Output:**
+Expected Output:
 
 ```
 Comment: Very Good
@@ -491,10 +485,10 @@ Comment: Very Good
 
 ### 3.3 Loops: Basic LOOP, WHILE, FOR, Nested
 
-PL/SQL provides three main types of loops.
+The language provides three main types of loops.
 
-**1. Basic LOOP (Infinite Loop)**
-Executes at least once. You must include an `EXIT` or `EXIT WHEN`
+1. Basic LOOP (Infinite Loop)
+Executes at least once. You must include an EXIT or EXIT WHEN
 condition to avoid an infinite loop.
 
 ```sql
@@ -512,7 +506,7 @@ END;
 /
 ```
 
-**2. WHILE LOOP**
+2. WHILE LOOP
 Checks the condition before each iteration. If the condition is false
 initially, the loop body never executes.
 
@@ -531,9 +525,9 @@ END;
 /
 ```
 
-**3. FOR LOOP**
+3. FOR LOOP
 Iterates a specific number of times. The loop index is automatically
-declared and incremented. Use `REVERSE` to count backward.
+declared and incremented. Use REVERSE to count backward.
 
 ```sql
 SET SERVEROUTPUT ON;
@@ -554,7 +548,7 @@ END;
 /
 ```
 
-**4. CONTINUE Statement**
+4. CONTINUE Statement
 Skips the current iteration and moves to the next.
 
 ```sql
@@ -570,7 +564,7 @@ END;
 /
 ```
 
-**Expected Output:**
+Expected Output:
 
 ```
 i = 1
@@ -585,23 +579,23 @@ i = 5
 
 ### 4.1 What is a Cursor?
 
-A cursor is a private memory area (work area) that Oracle uses to
-execute SQL statements and process the results. It is essential for
-handling queries that return multiple rows.
+A cursor is a private memory area (work area) that the database uses
+to execute SQL statements and process the results. It is essential
+for handling queries that return multiple rows.
 
-- **Implicit Cursor**: Automatically created by Oracle for all DML
-  and single-row `SELECT` statements.
-- **Explicit Cursor**: Defined by the programmer to handle queries
-  that return multiple rows.
+- Implicit Cursor: Automatically created for all DML and single-row
+  SELECT statements.
+- Explicit Cursor: Defined by the programmer to handle queries that
+  return multiple rows.
 
 ### 4.2 Implicit Cursors
 
-For every `INSERT`, `UPDATE`, `DELETE`, or `SELECT ... INTO`
-statement, Oracle creates an implicit cursor named `SQL`. You can use
-its attributes (`%FOUND`, `%NOTFOUND`, `%ROWCOUNT`, `%ISOPEN`) to get
-information about the operation.
+For every INSERT, UPDATE, DELETE, or SELECT ... INTO statement,
+the database creates an implicit cursor named SQL. You can use its
+attributes (%FOUND, %NOTFOUND, %ROWCOUNT, %ISOPEN) to get information
+about the operation.
 
-**Example: Using Implicit Cursor Attributes**
+Example: Using Implicit Cursor Attributes
 
 ```sql
 SET SERVEROUTPUT ON;
@@ -621,7 +615,7 @@ END;
 /
 ```
 
-**Expected Output:**
+Expected Output:
 
 ```
 Note: No records found to update.
@@ -632,12 +626,12 @@ Note: No records found to update.
 Explicit cursors give you fine-grained control over multi-row queries.
 Use these four steps:
 
-1.  **DECLARE**: Define the cursor with a `SELECT` statement.
-2.  **OPEN**: Execute the query and populate the work area.
-3.  **FETCH**: Retrieve one row at a time into local variables.
-4.  **CLOSE**: Release the work area.
+1.  DECLARE: Define the cursor with a SELECT statement.
+2.  OPEN: Execute the query and populate the work area.
+3.  FETCH: Retrieve one row at a time into local variables.
+4.  CLOSE: Release the work area.
 
-**Example: Basic Explicit Cursor**
+Example: Basic Explicit Cursor
 
 ```sql
 SET SERVEROUTPUT ON;
@@ -667,12 +661,12 @@ END;
 
 ### 4.4 Cursor FOR Loops
 
-The `CURSOR FOR LOOP` is the simplest and most efficient way to
+The CURSOR FOR LOOP is the simplest and most efficient way to
 process all rows of a query. It implicitly opens, fetches, and closes
 the cursor. You do not need to declare a fetch variable; the loop
-record (`rec` in the example) acts as a `%ROWTYPE` variable.
+record (rec in the example) acts as a %ROWTYPE variable.
 
-**Example: Cursor FOR Loop**
+Example: Cursor FOR Loop
 
 ```sql
 SET SERVEROUTPUT ON;
@@ -696,7 +690,7 @@ END;
 You can pass parameters to a cursor to make it dynamic and reusable.
 This is more efficient than declaring multiple separate cursors.
 
-**Example: Cursor with Parameter**
+Example: Cursor with Parameter
 
 ```sql
 SET SERVEROUTPUT ON;
@@ -726,17 +720,17 @@ END;
 
 ### 4.6 REF Cursors (Dynamic Cursors)
 
-A `REF CURSOR` is a pointer or a handle to a result set. It is a data
+A REF CURSOR is a pointer or a handle to a result set. It is a data
 type that allows you to associate a different query with the same
 cursor variable at runtime. This is useful for building dynamic
 queries or passing result sets between subprograms.
 
-- **Strongly Typed REF CURSOR**: Uses a `RETURN` clause, defining the
+- Strongly Typed REF CURSOR: Uses a RETURN clause, defining the
   exact record structure it will return.
-- **Weakly Typed REF CURSOR**: No `RETURN` clause. Can be used with
-  any query, offering maximum flexibility.
+- Weakly Typed REF CURSOR: No RETURN clause. Can be used with any
+  query, offering maximum flexibility.
 
-**Example: Weakly Typed REF CURSOR**
+Example: Weakly Typed REF CURSOR
 
 ```sql
 SET SERVEROUTPUT ON;
@@ -773,12 +767,12 @@ These attributes return information about the state of a cursor.
 
 | Attribute    | Description                                            |
 |--------------|--------------------------------------------------------|
-| `%FOUND`     | Returns `TRUE` if the last `FETCH` returned a row,    |
-|              | `NULL` before the first fetch, `FALSE` otherwise.     |
-| `%NOTFOUND`  | Returns `TRUE` if the last `FETCH` failed to return   |
-|              | a row, `NULL` before the first fetch.                 |
-| `%ISOPEN`    | Returns `TRUE` if the cursor is open.                 |
-| `%ROWCOUNT`  | Returns the total number of rows fetched so far.      |
+| %FOUND       | Returns TRUE if the last FETCH returned a row,        |
+|              | NULL before the first fetch, FALSE otherwise.         |
+| %NOTFOUND    | Returns TRUE if the last FETCH failed to return       |
+|              | a row, NULL before the first fetch.                   |
+| %ISOPEN      | Returns TRUE if the cursor is open.                   |
+| %ROWCOUNT    | Returns the total number of rows fetched so far.      |
 
 ---
 
@@ -786,12 +780,12 @@ These attributes return information about the state of a cursor.
 
 ### 5.1 Creating and Executing Procedures
 
-A **stored procedure** is a named PL/SQL block that performs one or
+A stored procedure is a named PL/SQL block that performs one or
 more specific actions. It is stored in the database, compiled once,
 and can be executed many times. Procedures may or may not return
-values (through `OUT` parameters).
+values (through OUT parameters).
 
-**Syntax:**
+Syntax:
 
 ```sql
 CREATE [OR REPLACE] PROCEDURE procedure_name
@@ -806,7 +800,7 @@ END [procedure_name];
 /
 ```
 
-**Example: A Simple Procedure**
+Example: A Simple Procedure
 
 ```sql
 CREATE OR REPLACE PROCEDURE Greetings
@@ -824,13 +818,13 @@ EXECUTE Greetings;
 
 Parameters define the data passed to and from a procedure.
 
-- `IN` (Default): A read-only value passed into the procedure.
-- `OUT`: A write-only value returned from the procedure. The calling
+- IN (Default): A read-only value passed into the procedure.
+- OUT: A write-only value returned from the procedure. The calling
   program provides a variable to hold the result.
-- `IN OUT`: A read-write parameter. The procedure can read the
+- IN OUT: A read-write parameter. The procedure can read the
   incoming value and modify it before returning.
 
-**Example: Procedure with IN and OUT Parameters**
+Example: Procedure with IN and OUT Parameters
 
 ```sql
 CREATE OR REPLACE PROCEDURE Add_Numbers (
@@ -856,7 +850,7 @@ END;
 
 ### 5.3 Examples of Stored Procedures
 
-**Example: Procedure with IN Parameter and Cursor**
+Example: Procedure with IN Parameter and Cursor
 
 ```sql
 CREATE OR REPLACE PROCEDURE Get_Employees_By_Dept (
@@ -890,20 +884,20 @@ EXECUTE Get_Employees_By_Dept(30);
 
 ### 6.1 Creating and Executing Functions
 
-A **function** is a named PL/SQL block that computes and **must
-return a single value**. It is used for computations and can be
-called in SQL statements (unlike procedures).
+A function is a named PL/SQL block that computes and must return a
+single value. It is used for computations and can be called in SQL
+statements (unlike procedures).
 
-**Key Differences from Procedures:**
+Key Differences from Procedures:
 
 | Feature           | Procedure                               | Function                                  |
 |-------------------|-----------------------------------------|-------------------------------------------|
 | Return Value      | May return 0 or many values (via OUT).  | Must return exactly one value (via RETURN). |
 | Call in SQL       | Cannot be called in a SQL statement.    | Can be called in a SQL statement.          |
 | Main Purpose      | Performs an action.                     | Computes and returns a value.               |
-| `RETURN` Keyword  | Exits the procedure early.              | Returns the function's result and exits.    |
+| RETURN Keyword    | Exits the procedure early.              | Returns the function's result and exits.    |
 
-**Syntax:**
+Syntax:
 
 ```sql
 CREATE [OR REPLACE] FUNCTION function_name
@@ -920,7 +914,7 @@ END [function_name];
 /
 ```
 
-**Example: A Simple Function**
+Example: A Simple Function
 
 ```sql
 CREATE OR REPLACE FUNCTION Get_Employee_Count
@@ -939,7 +933,7 @@ SELECT Get_Employee_Count() FROM DUAL;
 
 ### 6.2 Function Examples
 
-**Example: Function with IN Parameter (Salary Hike)**
+Example: Function with IN Parameter (Salary Hike)
 
 ```sql
 CREATE OR REPLACE FUNCTION Calculate_Salary_Hike (
@@ -980,9 +974,9 @@ FROM EMPLOYEE;
 
 Function overloading allows you to create multiple functions with the
 same name but different parameters (number, data type, or order).
-This is only possible within a **package** (see Section 7).
+This is only possible within a package (see Section 7).
 
-**Example: Overloading in a Package (Conceptual)**
+Example: Overloading in a Package (Conceptual)
 
 ```sql
 CREATE OR REPLACE PACKAGE Math_Pkg IS
@@ -999,17 +993,17 @@ END Math_Pkg;
 
 ### 7.1 Package Specification and Body
 
-A **package** is a container that groups related procedures,
-functions, variables, constants, cursors, and exceptions. It has two
-mandatory parts:
+A package is a container that groups related procedures, functions,
+variables, constants, cursors, and exceptions. It has two mandatory
+parts:
 
-1.  **Package Specification (Public Interface)**: Declares the objects
+1.  Package Specification (Public Interface): Declares the objects
     that are visible and callable from outside the package.
-2.  **Package Body (Private Implementation)**: Contains the actual
+2.  Package Body (Private Implementation): Contains the actual
     code for the procedures and functions declared in the
     specification. It can also contain private (hidden) objects.
 
-**Basic Structure Example:**
+Basic Structure Example:
 
 ```sql
 -- Package Specification
@@ -1059,20 +1053,20 @@ EXECUTE Employee_Pkg.Hire_Employee('Jane Doe', 60000);
 
 ### 7.2 Public and Private Constructs
 
-- **Public**: Declared in the specification. Accessible anywhere via
-  `package_name.object_name`.
-- **Private**: Declared only in the body. Not accessible outside the
+- Public: Declared in the specification. Accessible anywhere via
+  package_name.object_name.
+- Private: Declared only in the body. Not accessible outside the
   package. They help enforce encapsulation.
 
 ### 7.3 Advantages of Packages
 
-- **Modularity**: Logically groups related functionality.
-- **Encapsulation**: Hides implementation details.
-- **Performance**: When any object in a package is called, the entire
+- Modularity: Logically groups related functionality.
+- Encapsulation: Hides implementation details.
+- Performance: When any object in a package is called, the entire
   package is loaded into memory. Subsequent calls to other objects in
   the same package incur no additional disk I/O.
-- **Overloading**: Enables overloading of subprogram names.
-- **Initialization**: The optional initialization block (at the bottom
+- Overloading: Enables overloading of subprogram names.
+- Initialization: The optional initialization block (at the bottom
   of the body) runs once per session, perfect for setting up global
   state.
 
@@ -1082,19 +1076,19 @@ EXECUTE Employee_Pkg.Hire_Employee('Jane Doe', 60000);
 
 ### 8.1 Predefined Exceptions
 
-Oracle provides many predefined exceptions for common errors. Some of
-the most common include:
+The database provides many predefined exceptions for common errors.
+Some of the most common include:
 
 | Exception Name          | SQLCODE | Description                                    |
 |-------------------------|---------|------------------------------------------------|
-| `NO_DATA_FOUND`         | +100    | A `SELECT INTO` returned no rows.              |
-| `TOO_MANY_ROWS`         | -1422   | A `SELECT INTO` returned more than one row.    |
-| `DUP_VAL_ON_INDEX`      | -1      | Duplicate value in a unique index.             |
-| `ZERO_DIVIDE`           | -1476   | Attempted to divide a number by zero.          |
-| `INVALID_CURSOR`        | -1001   | Operation on an invalid cursor.                |
-| `OTHERS`                |         | Handles any exception not explicitly named.    |
+| NO_DATA_FOUND           | +100    | A SELECT INTO returned no rows.              |
+| TOO_MANY_ROWS           | -1422   | A SELECT INTO returned more than one row.    |
+| DUP_VAL_ON_INDEX        | -1      | Duplicate value in a unique index.           |
+| ZERO_DIVIDE             | -1476   | Attempted to divide a number by zero.        |
+| INVALID_CURSOR          | -1001   | Operation on an invalid cursor.              |
+| OTHERS                  |         | Handles any exception not explicitly named.  |
 
-**Example: Handling Predefined Exceptions**
+Example: Handling Predefined Exceptions
 
 ```sql
 SET SERVEROUTPUT ON;
@@ -1123,7 +1117,7 @@ END;
 You can declare and raise your own exceptions for business rule
 violations.
 
-**Example: User-Defined Exception**
+Example: User-Defined Exception
 
 ```sql
 SET SERVEROUTPUT ON;
@@ -1149,10 +1143,10 @@ END;
 
 ### 8.3 SQLCODE and SQLERRM
 
-- `SQLCODE`: Returns the numeric code of the last encountered exception.
-- `SQLERRM`: Returns the error message associated with `SQLCODE`.
+- SQLCODE: Returns the numeric code of the last encountered exception.
+- SQLERRM: Returns the error message associated with SQLCODE.
 
-**Example: Using SQLCODE and SQLERRM**
+Example: Using SQLCODE and SQLERRM
 
 ```sql
 EXCEPTION
@@ -1164,13 +1158,13 @@ END;
 
 ### 8.4 RAISE_APPLICATION_ERROR
 
-`RAISE_APPLICATION_ERROR` returns a user-defined error message to the
+RAISE_APPLICATION_ERROR returns a user-defined error message to the
 calling application. The error number must be between -20000 and
 -20999.
 
-**Syntax:** `RAISE_APPLICATION_ERROR(error_number, error_message);`
+Syntax: RAISE_APPLICATION_ERROR(error_number, error_message);
 
-**Example: RAISE_APPLICATION_ERROR**
+Example: RAISE_APPLICATION_ERROR
 
 ```sql
 CREATE OR REPLACE PROCEDURE Update_Salary (
@@ -1202,15 +1196,14 @@ A trigger is a stored procedure that automatically fires (executes)
 when a specific event (INSERT, UPDATE, DELETE) occurs on a table or
 view.
 
-**Types of DML Triggers:**
+Types of DML Triggers:
 
-- **Timing**: `BEFORE` (action before DML) or `AFTER`
-  (action after DML).
-- **Level**: `FOR EACH ROW` (row-level trigger, fires once per row
-  modified) or `FOR EACH STATEMENT` (statement-level trigger, fires
+- Timing: BEFORE (action before DML) or AFTER (action after DML).
+- Level: FOR EACH ROW (row-level trigger, fires once per row
+  modified) or FOR EACH STATEMENT (statement-level trigger, fires
   once for the entire DML statement, which is the default).
 
-**Syntax:**
+Syntax:
 
 ```sql
 CREATE [OR REPLACE] TRIGGER trigger_name
@@ -1227,7 +1220,7 @@ END trigger_name;
 /
 ```
 
-**Example: Row-Level BEFORE DELETE Trigger (Audit Log)**
+Example: Row-Level BEFORE DELETE Trigger (Audit Log)
 
 This trigger logs every deleted row into a backup table, including
 who deleted it and when.
@@ -1264,12 +1257,12 @@ DELETE FROM CUSTOMER WHERE CUST_ID = 2;
 These qualifiers allow you to access the column values of the row
 being processed.
 
-- **`INSERT`**: Only `:NEW` exists.
-- **`UPDATE`**: Both `:OLD` (value before update) and `:NEW`
+- INSERT: Only :NEW exists.
+- UPDATE: Both :OLD (value before update) and :NEW
   (value after update) exist.
-- **`DELETE`**: Only `:OLD` exists.
+- DELETE: Only :OLD exists.
 
-**Example: Trigger to Enforce Business Rule on UPDATE**
+Example: Trigger to Enforce Business Rule on UPDATE
 
 ```sql
 CREATE OR REPLACE TRIGGER Salary_Update_Check
@@ -1288,12 +1281,12 @@ END Salary_Update_Check;
 
 ### 9.3 INSTEAD OF Triggers for Views
 
-`INSTEAD OF` triggers are used on **non-updatable views**
+INSTEAD OF triggers are used on non-updatable views
 (e.g., views based on multiple tables). They tell the database
-*what to do* instead of the default (which would be to reject the
+what to do instead of the default (which would be to reject the
 DML operation).
 
-**Example: INSTEAD OF INSERT on a Complex View**
+Example: INSTEAD OF INSERT on a Complex View
 
 ```sql
 CREATE OR REPLACE VIEW Emp_Dept_View AS
@@ -1330,11 +1323,11 @@ END Insert_Emp_Dept_View;
 
 ### 9.4 DDL and System Triggers
 
-DDL triggers fire on DDL events (`CREATE`, `ALTER`, `DROP`,
-`TRUNCATE`). System triggers fire on database events like `LOGON`,
-`LOGOFF`, `STARTUP`, `SHUTDOWN`.
+DDL triggers fire on DDL events (CREATE, ALTER, DROP, TRUNCATE).
+System triggers fire on database events like LOGON, LOGOFF, STARTUP,
+SHUTDOWN.
 
-**Example: Logging DDL Operations on a Schema**
+Example: Logging DDL Operations on a Schema
 
 ```sql
 -- Create log table
@@ -1364,16 +1357,16 @@ END Log_DDL_Changes;
 
 ### 9.5 The Mutating Table Error and How to Fix It
 
-The **mutating table error** (`ORA-04091: table is mutating`) occurs
-when a row-level trigger reads or modifies the same table on which it
-is defined. This is because the table is in an inconsistent, changing
+The mutating table error (ORA-04091: table is mutating) occurs when
+a row-level trigger reads or modifies the same table on which it is
+defined. This is because the table is in an inconsistent, changing
 state.
 
-**Solution**: Use an **Autonomous Transaction** (covered in the next
+Solution: Use an Autonomous Transaction (covered in the next
 section) to separate the problematic operation. This makes the
 trigger's action independent of the main transaction.
 
-**Example: Fixing a Mutating Table Error**
+Example: Fixing a Mutating Table Error
 
 ```sql
 CREATE OR REPLACE TRIGGER Fix_Mutating_Trigger
@@ -1395,22 +1388,21 @@ END Fix_Mutating_Trigger;
 
 ### 10.1 Pragma AUTONOMOUS_TRANSACTION
 
-An **autonomous transaction** is an independent transaction started
-by another (parent) transaction. It does not depend on the parent.
+An autonomous transaction is an independent transaction started by
+another (parent) transaction. It does not depend on the parent.
 The autonomous transaction must be committed or rolled back before
 the parent resumes.
 
-**Key Features:**
+Key Features:
 
 - It is a child transaction.
-- It can `COMMIT` or `ROLLBACK` without affecting the parent
-  transaction.
+- It can COMMIT or ROLLBACK without affecting the parent transaction.
 - The parent can also commit or roll back independently.
 
-**Syntax:** `PRAGMA AUTONOMOUS_TRANSACTION;` placed in the declaration
+Syntax: PRAGMA AUTONOMOUS_TRANSACTION; placed in the declaration
 section.
 
-**Example: Autonomous Transaction Inside a Procedure**
+Example: Autonomous Transaction Inside a Procedure
 
 ```sql
 CREATE OR REPLACE PROCEDURE Log_Error (
@@ -1427,13 +1419,12 @@ END Log_Error;
 
 ### 10.2 Use Cases for Autonomous Transactions
 
-- **Error Logging**: Log an error even if the main transaction rolls
-  back.
-- **Auditing**: Record an audit trail independently of the main
-  business transaction.
-- **Fixing Mutating Table Errors**: As shown in Section 9.5.
-- **Calling DDL in Functions**: Since DDL performs auto-commit,
-  isolate it in an autonomous transaction inside a function.
+- Error Logging: Log an error even if the main transaction rolls back.
+- Auditing: Record an audit trail independently of the main business
+  transaction.
+- Fixing Mutating Table Errors: As shown in Section 9.5.
+- Calling DDL in Functions: Since DDL performs auto-commit, isolate
+  it in an autonomous transaction inside a function.
 
 ---
 
@@ -1442,17 +1433,17 @@ END Log_Error;
 Collections and records are composite data types, meaning they can
 hold multiple pieces of data.
 
-- **Record**: Holds a single row of data with fields of potentially
+- Record: Holds a single row of data with fields of potentially
   different data types.
-- **Collection**: Holds multiple elements (like an array) of the
-  *same* data type.
+- Collection: Holds multiple elements (like an array) of the same
+  data type.
 
 ### 11.1 PL/SQL Records (TYPE RECORD)
 
 A record is used to treat related, but potentially different, data as
 a single unit.
 
-**Example: Declaring and Using a Record**
+Example: Declaring and Using a Record
 
 ```sql
 SET SERVEROUTPUT ON;
@@ -1484,7 +1475,7 @@ Associative arrays are key-value pairs. The key (index) can be
 integer or string. They are temporary and exist only in the PL/SQL
 block.
 
-**Example: Associative Array with Integer Index**
+Example: Associative Array with Integer Index
 
 ```sql
 SET SERVEROUTPUT ON;
@@ -1530,14 +1521,14 @@ These are built-in functions and procedures to manipulate collections.
 
 | Method        | Type       | Description                                            |
 |---------------|------------|--------------------------------------------------------|
-| `COUNT`       | Function   | Returns the current number of elements.               |
-| `EXISTS(index)`| Function   | Returns `TRUE` if the specified index exists.         |
-| `FIRST`, `LAST`| Function   | Returns the first and last index value, respectively. |
-| `PRIOR(index)`, `NEXT(index)` | Function | Returns the previous/next index value.|
-| `LIMIT`       | Function   | Returns the maximum size of a VARRAY; `NULL` for nested tables. |
-| `EXTEND`      | Procedure  | Appends one or more null elements.                    |
-| `TRIM`        | Procedure  | Removes one or more elements from the end.            |
-| `DELETE`      | Procedure  | Removes all elements, or an element at a specific index.|
+| COUNT         | Function   | Returns the current number of elements.               |
+| EXISTS(index) | Function   | Returns TRUE if the specified index exists.           |
+| FIRST, LAST   | Function   | Returns the first and last index value, respectively. |
+| PRIOR(index), NEXT(index) | Function | Returns the previous/next index value.|
+| LIMIT         | Function   | Returns the maximum size of a VARRAY; NULL for nested tables. |
+| EXTEND        | Procedure  | Appends one or more null elements.                    |
+| TRIM          | Procedure  | Removes one or more elements from the end.            |
+| DELETE        | Procedure  | Removes all elements, or an element at a specific index.|
 
 ---
 
@@ -1545,10 +1536,10 @@ These are built-in functions and procedures to manipulate collections.
 
 ### 12.1 BULK COLLECT for Fast Data Retrieval
 
-`BULK COLLECT` fetches multiple rows from a query into a collection
+BULK COLLECT fetches multiple rows from a query into a collection
 in a single operation, drastically reducing context switches.
 
-**Example: BULK COLLECT with SELECT**
+Example: BULK COLLECT with SELECT
 
 ```sql
 SET SERVEROUTPUT ON;
@@ -1571,10 +1562,10 @@ END;
 
 ### 12.2 FORALL for Bulk DML Operations
 
-`FORALL` performs the same DML operation (INSERT, UPDATE, DELETE) for
+FORALL performs the same DML operation (INSERT, UPDATE, DELETE) for
 all elements in a collection, again minimizing context switches.
 
-**Example: FORALL with INSERT**
+Example: FORALL with INSERT
 
 ```sql
 DECLARE
@@ -1596,10 +1587,10 @@ END;
 
 ### 12.3 LIMIT Clause for Managing Memory
 
-When fetching a very large result set with `BULK COLLECT`, using
-`LIMIT` fetches rows in batches, preventing out-of-memory errors.
+When fetching a very large result set with BULK COLLECT, using
+LIMIT fetches rows in batches, preventing out-of-memory errors.
 
-**Example: LIMIT with a Cursor**
+Example: LIMIT with a Cursor
 
 ```sql
 DECLARE
@@ -1634,10 +1625,10 @@ runtime, which is useful when you don't know the exact structure
 
 ### 13.1 EXECUTE IMMEDIATE for DDL and DML
 
-`EXECUTE IMMEDIATE` is the simplest way to execute dynamic SQL. It is
+EXECUTE IMMEDIATE is the simplest way to execute dynamic SQL. It is
 ideal for DDL (CREATE, DROP, TRUNCATE) and single DML statements.
 
-**Example: Dropping a Table Dynamically**
+Example: Dropping a Table Dynamically
 
 ```sql
 DECLARE
@@ -1655,12 +1646,12 @@ END;
 
 ### 13.2 Using Bind Variables with EXECUTE IMMEDIATE
 
-Using **bind variables** (placeholders preceded by a colon,
-e.g., `:salary`) in dynamic SQL is a best practice. It improves
-performance by allowing Oracle to reuse SQL area and prevents
+Using bind variables (placeholders preceded by a colon,
+e.g., :salary) in dynamic SQL is a best practice. It improves
+performance by allowing the database to reuse SQL area and prevents
 SQL injection.
 
-**Example: Dynamic UPDATE with Bind Variables**
+Example: Dynamic UPDATE with Bind Variables
 
 ```sql
 CREATE OR REPLACE PROCEDURE Dynamic_Update (
@@ -1690,7 +1681,7 @@ Global Temporary Tables (GTTs) store session-private data. Data
 inserted into a GTT is visible only to the current session and is
 automatically dropped at the end of the transaction or session.
 
-**Example: Creating a Global Temporary Table**
+Example: Creating a Global Temporary Table
 
 ```sql
 -- Transaction-level GTT: Data is deleted after COMMIT
@@ -1711,12 +1702,12 @@ CREATE GLOBAL TEMPORARY TABLE Temp_Session_Data (
 
 ## 15. Database Setup Scripts for Practice
 
-Run the following scripts in your Oracle schema to create and
+Run the following scripts in your database schema to create and
 populate the tables used in the examples. This script creates tables
-for `EMPLOYEES`, `DEPARTMENTS`, and `CUSTOMER`, and inserts a sample
-of 12 to 15 rows into each.
+for EMPLOYEES, DEPARTMENTS, and CUSTOMER, and inserts a sample of
+12 to 15 rows into each.
 
-**15.1 Create and Populate Employees Table**
+### 15.1 Create and Populate Employees Table
 
 ```sql
 -- =============================================================================
@@ -1901,7 +1892,7 @@ UNION ALL
 SELECT 'Customer Count: ' || COUNT(*) FROM CUSTOMER;
 ```
 
-**Expected Output for Count Verification:**
+Expected Output for Count Verification:
 
 ```
 Employees Count: 14
@@ -1913,26 +1904,35 @@ Customer Count: 15
 
 ## 16. Core PL/SQL Best Practices and Summary
 
-1.  **Always use `%TYPE` and `%ROWTYPE`** instead of hardcoding data
-    types. This makes your code adaptable to table changes.
-2.  **Handle exceptions gracefully**. At a minimum, have an `OTHERS`
+1.  Always use %TYPE and %ROWTYPE instead of hardcoding data types.
+    This makes your code adaptable to table changes.
+
+2.  Handle exceptions gracefully. At a minimum, have an OTHERS
     handler to log errors.
-3.  **Use `BULK COLLECT` and `FORALL`** for high-volume data
-    processing to minimize context switching.
-4.  **Use bind variables in dynamic SQL** to improve performance and
+
+3.  Use BULK COLLECT and FORALL for high-volume data processing to
+    minimize context switching.
+
+4.  Use bind variables in dynamic SQL to improve performance and
     security.
-5.  **Avoid large, monolithic blocks**. Break code into procedures,
+
+5.  Avoid large, monolithic blocks. Break code into procedures,
     functions, and packages for modularity and reusability.
-6.  **Explicitly close cursors** when done with explicit cursors to
-    free resources.
-7.  **Use `COMMIT` and `ROLLBACK` judiciously**. Ensure transactions
-    are complete before committing.
-8.  **Use packages** to group related logic and hide implementation
+
+6.  Explicitly close cursors when done with explicit cursors to free
+    resources.
+
+7.  Use COMMIT and ROLLBACK judiciously. Ensure transactions are
+    complete before committing.
+
+8.  Use packages to group related logic and hide implementation
     details.
-9.  **Document your code** using comments, especially for complex
+
+9.  Document your code using comments, especially for complex
     business logic.
-10. **Test your exception handlers** to ensure they cover both
-    expected and unexpected errors.
+
+10. Test your exception handlers to ensure they cover both expected
+    and unexpected errors.
 
 ---
 
