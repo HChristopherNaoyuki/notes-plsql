@@ -1936,6 +1936,6 @@ Customer Count: 15
 
 ---
 
-*END OF DOCUMENT*
+END OF DOCUMENT
 
 ---
